@@ -324,12 +324,12 @@ parsePath = A.option "" (A.char '/' *> A.takeWhile1 isPath)
 
 -- | 'IRI' query parser.
 parseQuery :: A.Parser (Maybe T.Text)
-parseQuery = A.option Nothing (Just <$> (A.char '?' *> A.takeWhile1 isQuery))
+parseQuery = A.option Nothing (Just <$> (A.char '?' *> A.takeWhile isQuery))
     where isQuery c = isIRI c && (c/= '#')
 
 -- | 'IRI' fragment parser.
 parseFragment :: A.Parser (Maybe T.Text)
-parseFragment = A.option Nothing (Just <$> (A.char '#' *> A.takeWhile1 isIRI))
+parseFragment = A.option Nothing (Just <$> (A.char '#' *> A.takeWhile isIRI))
 
 -- | Parser for graph labels, i.e. either an escaped 'IRI' or the empty string.
 parseGraphLabel :: A.Parser (Maybe IRI)
